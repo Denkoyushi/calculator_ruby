@@ -4,29 +4,42 @@ def calculator(sentence)
     "minus" => :-,
     "times" => :*,
     "multiplied" => :*,
-    "divided" => :/
+    "divided" => :/,
+    "power" => :**
    }
 
   words_to_delete = ["what", "What", "is", "to", "the", "by"]
 
+  operators = []
+
   sentence.chomp!("?")
+  sentence.chomp!("rd")
   strings_in_sentence = sentence.split(" ")
   strings_in_sentence.delete_if { |string| words_to_delete.include?(string)  }
   
   strings_in_sentence.each_with_index do |string, index|
     if operator_words_to_symbols.include?(string)
-      strings_in_sentence[index] = operator_words_to_symbols[string]
+      operators << operator_words_to_symbols[string]
+      strings_in_sentence.delete_at(index)
     end
   end
-  operator = strings_in_sentence[1].to_sym
-  strings_in_sentence.delete_at(1)
+  
   integers = []
   strings_in_sentence.each do |number|
     integers << number.to_f
   end
-  integers.inject(operator)
+
+  if integers.length > 2
+    result = integers[0..1].inject(operators[0])
+    integers.shift(2)
+    integers.unshift(result)
+    integers.inject(operators[1])
+  else
+    integers.inject(operators[0])
+  end
+
 end
 
-calculator("What is 4 divided by 2?")
+calculator("What is 4 plus 6 divided by 2?")
 
 
