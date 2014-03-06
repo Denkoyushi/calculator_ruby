@@ -1,4 +1,13 @@
-def calculator(sentence)
+def calculator(entire_input)
+  answers = []
+  questions = entire_input.split("?")
+  questions.each do |question|
+    answers << single_question_calculator(question)
+  end 
+  answers
+end
+
+def single_question_calculator(sentence)
   operator_words_to_symbols = { 
     "plus" => :+,
     "minus" => :-,
@@ -35,11 +44,12 @@ def calculator(sentence)
     integers.unshift(result)
     integers.inject(operators[1])
   else
+    
     integers.inject(operators[0])
   end
-
+  
 end
 
-calculator("What is 4 plus 6 divided by 2?")
-
+single_question_calculator("What is 4 plus 6 divided by 2?")
+calculator("What is 4 plus 6? What is 3 times 5?")
 
