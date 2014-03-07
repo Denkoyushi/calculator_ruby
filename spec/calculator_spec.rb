@@ -29,7 +29,7 @@ describe('single_question_calculator') do
   end  
 
   it 'takes a string ie "what is 4 to the 3rd power?" and returns an answer as a float' do
-    single_question_calculator("what is 4 to the 3rd power?").should eq 64
+    single_question_calculator("what is 4 to the 3rd power").should eq 64
   end
 
   it 'takes a string with multiple operations and returns an answer as a float' do
